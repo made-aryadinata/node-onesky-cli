@@ -10,7 +10,7 @@ const jsonfile = require('jsonfile');
 const onesky = require('onesky-utils');
 const program = require('commander');
 
-const errorLogger = require('./utils/error-logger');
+const errorLogger = require('./src/utils/error-logger');
 
 program
   .option('-p, --path [path]', 'Directory path to save translation files')
