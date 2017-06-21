@@ -1,6 +1,6 @@
 {
   "name": "node-onesky-cli",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "CLI to synchronize translation file in OneSky app with developer's source code.",
   "main": "onesky.js",
   "engines": {
