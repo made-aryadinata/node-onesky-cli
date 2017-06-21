@@ -4,15 +4,17 @@
  * Also sort array.
  */
 
+const compare = (a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' });
+
 function sort(obj) {
   if (Array.isArray(obj)) {
-    return obj.sort();
+    return obj.sort(compare);
   }
 
   const keys = Object.keys(obj);
   const newObj = {};
 
-  keys.sort()
+  keys.sort(compare)
       .forEach((key) => {
         newObj[key] = typeof obj[key] === 'object' ? sort(obj[key]) : obj[key];
       });

@@ -8,19 +8,19 @@ describe('JSON key sort', () => {
   it('should return the object with sorted keys', () => {
     const objectA = {
       b: '',
-      c: '',
-      a: { e: '', f: '', d: '' },
-      d: ['c', 'a', 'b']
+      C: '',
+      a: { E: '', f: '', d: '' },
+      D: ['c', 'a', 'B']
     };
 
     const sortedObjectA = jsonKeySort(objectA);
-    expect(Object.keys(sortedObjectA)).to.not.deep.equal(['b', 'c', 'a', 'd']);
-    expect(Object.keys(sortedObjectA)).to.deep.equal(['a', 'b', 'c', 'd']);
+    expect(Object.keys(sortedObjectA)).to.not.deep.equal(['b', 'C', 'a', 'D']);
+    expect(Object.keys(sortedObjectA)).to.deep.equal(['a', 'b', 'C', 'D']);
 
-    expect(Object.keys(sortedObjectA.a)).to.not.deep.equal(['e', 'f', 'd']);
-    expect(Object.keys(sortedObjectA.a)).to.deep.equal(['d', 'e', 'f']);
+    expect(Object.keys(sortedObjectA.a)).to.not.deep.equal(['E', 'f', 'd']);
+    expect(Object.keys(sortedObjectA.a)).to.deep.equal(['d', 'E', 'f']);
 
-    expect(sortedObjectA.d).to.not.deep.equal(['c', 'a', 'b']);
-    expect(sortedObjectA.d).to.deep.equal(['a', 'b', 'c']);
+    expect(sortedObjectA.D).to.not.deep.equal(['c', 'a', 'B']);
+    expect(sortedObjectA.D).to.deep.equal(['a', 'B', 'c']);
   });
 });
