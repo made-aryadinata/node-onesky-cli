@@ -36,9 +36,14 @@ const sync = (program) => {
     Object.keys(parsedJson).forEach((locale) => {
       console.info(`  - ${locale}`);
 
+      const { translation } = parsedJson[locale];
+      Object.keys(translation).forEach((key) => {
+        translation[key] = Array.isArray(translation[key]) ? translation[key].join('\n') : translation[key];
+      });
+
       // TODO: check file exists
       const localJson = jsonfile.readFileSync(`${filePath}/${locale}.json`);
-      const oneSkyJson = parsedJson[locale].translation;
+      const oneSkyJson = translation;
       const diffs = jsonKeyDiff(localJson, oneSkyJson);
 
       if (diffs[0].length === 0 && diffs[1].length === 0) {
