@@ -13,7 +13,7 @@ program
   .option('-s, --secret <secret>', 'OneSky secret key')
   .option('-a, --apiKey <apiKey>', 'OneSky API key')
   .option('-i, --projectId <projectId>', 'OneSky project ID')
-  .option('-n, --fileName <fileName>', '<Optional> OneSky file name');
+  .option('-n, --fileName <fileName>', '<Optional> OneSky file name (upload single)');
 
 program.parse(process.argv);
 
