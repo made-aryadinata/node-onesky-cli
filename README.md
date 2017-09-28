@@ -8,6 +8,7 @@ A command line interface to synchronize translation file in [OneSky](http://www.
 
   ### Commands:
     sync        Synchronize multilingual translations from OneSky
+    upload      Upload multilingual translations to OneSky
 
   ### Options:
 
