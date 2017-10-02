@@ -25,7 +25,7 @@ const upload = (program) => {
   const filesNameToUpload = [];
 
   let uploadedLocales = program.locales && program.locales.split(',');
-  console.log('Getting files from', filePath);
+  console.info('Getting files from');
 
   if (!uploadedLocales) {
     uploadedLocales = fs.readdirSync(filePath)
@@ -49,13 +49,18 @@ const upload = (program) => {
     filesNameToUpload.push(program.fileName);
   }
 
-  return filesNameToUpload.map((fileNameToUpload) => {
+  const promises = filesNameToUpload.map((fileNameToUpload) => {
     const oneSkyPostOptions = generateOneSkyOptions(program, fileNameToUpload, content);
 
-    return onesky.postFile(oneSkyPostOptions).then(() => {
-      console.info(`  - ${filePath}/${fileNameToUpload} -`, chalk.green('Success!'));
-    }).catch(errorLogger);
+    return onesky.postFile(oneSkyPostOptions);
   });
+
+  return Promise.all(promises).then((results) => {
+    results.forEach((result) => {
+      const jsResult = JSON.parse(result);
+      console.info(`  - ${filePath}/${jsResult.data.name} -`, chalk.green('Success!'));
+    });
+  }).catch(errorLogger);
 };
 
 module.exports = upload;
