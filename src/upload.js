@@ -19,8 +19,9 @@ const generateOneSkyOptions = (program, fileName, fileContent) => ({
 });
 
 const upload = (program) => {
-  const filePath = program.path || '.';
+  let shouldFailProcess = false;
 
+  const filePath = program.path || '.';
   const content = {};
   const filesNameToUpload = [];
 
@@ -32,21 +33,31 @@ const upload = (program) => {
     .filter(file => file.slice(-5) === '.json')
     .map(file => file.slice(0, -5));
   }
-  console.log('Locale to upload:', uploadedLocales);
+  console.info('Locale to upload:', uploadedLocales);
 
-  console.log(chalk.bold('Uploading...'));
+  console.info(chalk.bold('Uploading...'));
 
   uploadedLocales.forEach((locale) => {
-    const localeJson = jsonfile.readFileSync(`${filePath}/${locale}.json`);
-    content[locale] = { translation: localeJson };
+    const localeToUpload = locale.trim();
+    const localeJson = jsonfile.readFileSync(`${filePath}/${localeToUpload}.json`);
+    content[localeToUpload] = { translation: localeJson };
 
     if (!program.fileName) {
-      filesNameToUpload.push(`${locale}.json`);
+      filesNameToUpload.push(`${localeToUpload}.json`);
     }
   });
 
   if (filesNameToUpload.length === 0 && program.fileName) {
     filesNameToUpload.push(program.fileName);
+  }
+
+  if (filesNameToUpload.length === 0) {
+    shouldFailProcess = true;
+  }
+
+  if (shouldFailProcess) {
+    console.error(chalk.red('    locales or fileName to upload should be defined'));
+    process.exit(1);
   }
 
   const promises = filesNameToUpload.map((fileNameToUpload) => {
@@ -56,9 +67,8 @@ const upload = (program) => {
   });
 
   return Promise.all(promises).then((results) => {
-    results.forEach((result) => {
-      const jsResult = JSON.parse(result);
-      console.info(`  - ${filePath}/${jsResult.data.name} -`, chalk.green('Success!'));
+    results.forEach((result, index) => {
+      console.info(`  - ${filePath}/${filesNameToUpload[index]} -`, chalk.green('Success!'));
     });
   }).catch(errorLogger);
 };

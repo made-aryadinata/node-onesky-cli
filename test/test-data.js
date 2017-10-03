@@ -1,12 +1,14 @@
 
 
 const program = {
+  path: 'test',
   secret: 'secret',
   apiKey: 'apikey',
   projectId: 'projectid',
-  fileName: 'filename',
+  fileName: 'en-US',
   console: false,
-  optimistic: true
+  optimistic: true,
+  locales: 'en-US,id'
 };
 
 const oneSkyReply = JSON.stringify({
