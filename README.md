@@ -8,6 +8,7 @@ A command line interface to synchronize translation file in [OneSky](http://www.
 
   ### Commands:
     sync        Synchronize multilingual translations from OneSky
+    upload      Upload multilingual translations to OneSky
 
   ### Options:
 
@@ -24,3 +25,12 @@ A command line interface to synchronize translation file in [OneSky](http://www.
     -a, --apiKey <apiKey>        OneSky API key
     -i, --projectId <projectId>  OneSky project ID
     -n, --fileName <fileName>    OneSky file name
+    
+  ### upload Options:
+
+    -h, --help                   output usage information
+    -p, --path [path]            Directory path to save translation files
+    -s, --secret <secret>        OneSky secret key
+    -a, --apiKey <apiKey>        OneSky API key
+    -i, --projectId <projectId>  OneSky project ID
+    -n, --fileName <fileName>    <Optional> OneSky file name (upload single)
