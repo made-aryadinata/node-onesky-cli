@@ -2,7 +2,7 @@ const chai = require('chai');
 
 const jsonKeyDiff = require('../../src/utils/json-key-diff');
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('JSON key diff', () => {
   it('should return the difference', () => {

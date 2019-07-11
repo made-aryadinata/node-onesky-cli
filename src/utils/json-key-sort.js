@@ -15,9 +15,9 @@ function sort(obj) {
   const newObj = {};
 
   keys.sort(compare)
-      .forEach((key) => {
-        newObj[key] = typeof obj[key] === 'object' ? sort(obj[key]) : obj[key];
-      });
+    .forEach((key) => {
+      newObj[key] = typeof obj[key] === 'object' ? sort(obj[key]) : obj[key];
+    });
 
   return newObj;
 }

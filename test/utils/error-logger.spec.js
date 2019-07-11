@@ -6,7 +6,7 @@ const sinonChai = require('sinon-chai');
 const errorLogger = require('../../src/utils/error-logger');
 
 chai.use(sinonChai);
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Error logger', () => {
   beforeEach(() => {

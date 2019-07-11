@@ -2,7 +2,7 @@ const chai = require('chai');
 
 const jsonKeySort = require('../../src/utils/json-key-sort');
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('JSON key sort', () => {
   it('should return the object with sorted keys', () => {

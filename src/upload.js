@@ -30,8 +30,8 @@ const upload = (program) => {
 
   if (!uploadedLocales) {
     uploadedLocales = fs.readdirSync(filePath)
-    .filter(file => file.slice(-5) === '.json')
-    .map(file => file.slice(0, -5));
+      .filter(file => file.slice(-5) === '.json')
+      .map(file => file.slice(0, -5));
   }
   console.info('Locale to upload:', uploadedLocales);
 

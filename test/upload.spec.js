@@ -1,33 +1,30 @@
 const chai = require('chai');
 const chalk = require('chalk');
-const fs = require('fs');
 const jsonfile = require('jsonfile');
 const onesky = require('onesky-utils');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
-const deferred = Promise.defer();
 
 const upload = require('../src/upload');
 
-const fileName = locale => `${program.path || '.'}/${locale}.json`;
 
 const {
   program,
   oneSkyReply,
   idFile1,
-  idFile2,
   enFile1,
   enFile2
 } = require('./test-data');
 
+const fileName = locale => `${program.path || '.'}/${locale}.json`;
+
 chai.use(sinonChai);
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Upload', () => {
   let postFile;
   let readFileSync;
   let processExit;
-  let deferStub;
 
   beforeEach(() => {
     sinon.stub(console, 'error');
@@ -40,8 +37,6 @@ describe('Upload', () => {
     readFileSync = sinon.stub(jsonfile, 'readFileSync');
 
     processExit = sinon.stub(process, 'exit');
-
-    deferStub = sinon.stub(deferred, 'resolve').returns(Promise.resolve(oneSkyReply));
   });
 
   afterEach(() => {
@@ -52,7 +47,6 @@ describe('Upload', () => {
     postFile.restore();
     readFileSync.restore();
     processExit.restore();
-    deferStub.restore();
   });
 
   it('should prepare for uploading', (done) => {
@@ -94,13 +88,13 @@ describe('Upload', () => {
     readFileSync.withArgs(fileName('id')).returns(enFile2);
 
     upload(Object.assign({}, program, { fileName: undefined, locales: 'en-US, id' }))
-    .then(() => {
-      const locale = program.locales.split(',');
-      expect(console.info.args[3][0]).to.be.equal(`  - ${program.path}/${locale[0]}.json -`);
-      expect(console.info.args[3][1]).to.be.equal(chalk.green('Success!'));
-      expect(console.info.args[4][0]).to.be.equal(`  - ${program.path}/${locale[1]}.json -`);
-      expect(console.info.args[4][1]).to.be.equal(chalk.green('Success!'));
-    })
-    .then(done, done);
+      .then(() => {
+        const locale = program.locales.split(',');
+        expect(console.info.args[3][0]).to.be.equal(`  - ${program.path}/${locale[0]}.json -`);
+        expect(console.info.args[3][1]).to.be.equal(chalk.green('Success!'));
+        expect(console.info.args[4][0]).to.be.equal(`  - ${program.path}/${locale[1]}.json -`);
+        expect(console.info.args[4][1]).to.be.equal(chalk.green('Success!'));
+      })
+      .then(done, done);
   });
 });
